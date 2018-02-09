@@ -1,5 +1,6 @@
 import re
 import feedparser
+import config
 
 # Returns title and dictionary of word counts for an RSS feed
 def getwordcounts(url):
@@ -32,6 +33,7 @@ def getwords(html):
     # Convert to lowercase
     return [word.lower() for word in words if word != '']
 
+# alt main
 def main():
     apcount = {}
     wordcounts = {}
