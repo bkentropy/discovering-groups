@@ -18,7 +18,7 @@ def getwords(txt):
     words = txt.split()
 
     # Convert to lowercase
-    return [word.lower() for word in words if word != '']
+    return [word.lower() for word in words[1:] if word != '']
 
 def main():
     apcount = {}
@@ -35,11 +35,12 @@ def main():
             user, wc = getwordcounts(d)
         except:
             print("fail")
-        #wordcounts[title] = wc
-        #for word, count in wc.items():
-        #    apcount.setdefault(word, 0)
-        #    if count > 1:
-        #        apcount[word] += 1
+        wordcounts[user] = wc
+        for word, count in wc.items():
+            apcount.setdefault(word, 0)
+            if count > 1:
+                apcount[word] += 1
+    print(apcount)
 
     #wordlist = []
     ## why bc? 
