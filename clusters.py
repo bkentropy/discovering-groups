@@ -44,6 +44,19 @@ def pearson(v1, v2):
 
     return 1.0 - num / den
 
+def tanimoto(v1, v2):
+    c1, c2, shr = 0, 0, 0
+
+    for i in range(len(v1)):
+        if v1[i] != 0:
+            c1 += 1 # in v1
+        if v2[i] != 0:
+            c2 += 1 # in v2
+        if v1[i] != 0 and v2[i] != 0: 
+           shr += 1  # in both
+
+    return 1.0 - (float(shr)/(c1 + c2 - shr))
+
 # Define Clust Class funtions
 class bicluster:
     def __init__(self, vec, left = None, right = None,
@@ -226,14 +239,20 @@ def kcluster(rows, distance = pearson, k = 4):
     return bestmatches
 
 # Set up some useful globals
+## Blog data
 blognames, words, data = readfile('blogdata.txt')
-clust = hcluster(data)
+#clust = hcluster(data)
 
-def drawdendrowithcontext():
-    drawdendrogram(clust, blognames, jpeg='blogclust1.jpg')
+## zebo data
+wants, people, data = readfile('zebo.txt')
+clust = hcluster(data, distance=tanimoto)
+
+def drawdendrowithcontext(clust, orgby, jpgname):
+    drawdendrogram(clust, orgby, jpeg=jpgname)
 
 def main():
-    print("Available data: blognames, words, and data")
+    # Make sure to only export one clust at a time
+    print('Available data: blognames, words, and data, clust, and drawdendrogram function')
 
 if __name__ == '__main__':
     main()
