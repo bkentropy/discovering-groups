@@ -57,6 +57,13 @@ def tanimoto(v1, v2):
 
     return 1.0 - (float(shr)/(c1 + c2 - shr))
 
+def euclidean(v1, v2):
+    lg = len(v1)
+    dif = 0
+    for i in range(lg):
+        dif += pow((v1[i] - v2[i]), 2)
+    return sqrt(dif)
+
 # Define Clust Class funtions
 class bicluster:
     def __init__(self, vec, left = None, right = None,
@@ -244,15 +251,14 @@ blognames, words, data = readfile('blogdata.txt')
 #clust = hcluster(data)
 
 ## zebo data
-wants, people, data = readfile('zebo.txt')
-clust = hcluster(data, distance=tanimoto)
-
-def drawdendrowithcontext(clust, orgby, jpgname):
-    drawdendrogram(clust, orgby, jpeg=jpgname)
+wants, people, _ = readfile('zebo.txt')
+#clust = hcluster(data, distance=tanimoto)
+# use euclidan distance
+clust = hcluster(data, distance=euclidean)
 
 def main():
     # Make sure to only export one clust at a time
-    print('Available data: blognames, words, and data, clust, and drawdendrogram function')
+    drawdendrogram(clust, people, jpeg='euclidean.jpg')
 
 if __name__ == '__main__':
     main()
