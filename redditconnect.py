@@ -14,6 +14,9 @@ def getTopLevelComment(submissions):
     top_lvl_cmts = []
     for sub in submissions:
         top_lvl_cmt = [cmt for cmt in sub.comments]
+        # didn't need first time around but will probably
+        # need it later
+        #top_lvl_cmt = [cmt for cmt in sub.comments.replace_more(limit=0)]
         top_lvl_cmts.append(top_lvl_cmt)
     return top_lvl_cmts
 
@@ -42,7 +45,9 @@ def main():
     # [Comment(id='dtyb1qx')], [], []]
     toplvl = getTopLevelComment(submissions)
     print('Top level comments of all of the submissions:')
-    print(toplvl)
+    return toplvl
 
 if __name__ == "__main__":
     main()
+
+
